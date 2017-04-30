@@ -15,7 +15,7 @@ Stack.prototype.push = function(item) {
 
 Stack.prototype.pop = function() {
   if(this.size <= 0) {
-    return "Nothing to pop";
+    return "Nothing to pop. The stack is empty";
   }
   var value = this.store[this.size];
   delete this.store[this.size];
