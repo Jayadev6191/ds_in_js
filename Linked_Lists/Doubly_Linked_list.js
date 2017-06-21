@@ -11,9 +11,6 @@ function Node(data) {
   this.prev = null;
 };
 
-DoublyLinkedList.prototype.store = function(element){
-  console.log(this.map);
-}
 
 DoublyLinkedList.prototype.add = function(element){
   var node = new Node(element);
@@ -23,25 +20,36 @@ DoublyLinkedList.prototype.add = function(element){
     this.head = node;
     this.tail = node;
   }else{
-    var currentNode = this.head;
-    while(currentNode.next!==null) {
-      currentNode = currentNode.next;
-    }
-    currentNode.next = node;
-    node.prev=currentNode;
+    this.tail.next = node;
+    node.prev = this.tail;
+    this.tail = node;
   }
 
-  this.print();
   this.numberOfValues++;
 }
 
 DoublyLinkedList.prototype.remove = function(element){
   if(this.map.hasOwnProperty(element)){
     var currentNode = this.map[element];
-    currentNode.prev.next = currentNode.next;
-    currentNode.next.prev = currentNode.prev;
+    if(currentNode === this.tail) {
+      alert("deleting tail");
+      currentNode = currentNode.prev;
+      this.tail = currentNode;
+      this.tail.next = null;
+    }else if(currentNode === this.head) {
+      alert("deleting head");
+      currentNode = currentNode.next;
+      this.head = currentNode;
+      this.head.prev = null;
+    }else {
+      alert("deleting middle");
+      currentNode.prev.next = currentNode.next;
+      currentNode.next.prev = currentNode.prev;
+    }
+
     this.numberOfValues--;
   }else{
+    alert(`node with data ${element} not found`);
     throw "node not found";
   }
 }
@@ -60,9 +68,10 @@ DoublyLinkedList.prototype.print = function(){
   console.log(result);
 }
 
+
 var dl = new DoublyLinkedList();
 dl.add(20);
 dl.add(30);
 dl.add(40);
-dl.remove(30);
+dl.add(50);
 dl.print();
