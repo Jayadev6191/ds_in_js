@@ -32,17 +32,14 @@ DoublyLinkedList.prototype.remove = function(element){
   if(this.map.hasOwnProperty(element)){
     var currentNode = this.map[element];
     if(currentNode === this.tail) {
-      alert("deleting tail");
       currentNode = currentNode.prev;
       this.tail = currentNode;
       this.tail.next = null;
     }else if(currentNode === this.head) {
-      alert("deleting head");
       currentNode = currentNode.next;
       this.head = currentNode;
       this.head.prev = null;
     }else {
-      alert("deleting middle");
       currentNode.prev.next = currentNode.next;
       currentNode.next.prev = currentNode.prev;
     }
