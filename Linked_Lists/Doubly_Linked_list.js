@@ -32,14 +32,17 @@ DoublyLinkedList.prototype.remove = function(element){
   if(this.map.hasOwnProperty(element)){
     var currentNode = this.map[element];
     if(currentNode === this.tail) {
+      alert("deleting tail");
       currentNode = currentNode.prev;
       this.tail = currentNode;
       this.tail.next = null;
     }else if(currentNode === this.head) {
+      alert("deleting head");
       currentNode = currentNode.next;
       this.head = currentNode;
       this.head.prev = null;
     }else {
+      alert("deleting middle");
       currentNode.prev.next = currentNode.next;
       currentNode.next.prev = currentNode.prev;
     }
@@ -49,6 +52,23 @@ DoublyLinkedList.prototype.remove = function(element){
     alert(`node with data ${element} not found`);
     throw "node not found";
   }
+}
+
+DoublyLinkedList.prototype.reverse = function(){
+  var tailNode = this.tail;
+  console.log(tailNode);
+  var counter = 0;
+  var result = '';
+  while(tailNode){
+    console.log('tailnode data is '+tailNode);
+    result+= (
+              tailNode.prev !== null ?
+              `[${tailNode.data}] <--> ` :
+              `[${tailNode.data}] <--> null`
+             );
+    tailNode = tailNode.prev;
+  }
+  console.log(result);
 }
 
 DoublyLinkedList.prototype.print = function(){
@@ -71,4 +91,5 @@ dl.add(20);
 dl.add(30);
 dl.add(40);
 dl.add(50);
-dl.print();
+// dl.print();
+// dl.reverse();
